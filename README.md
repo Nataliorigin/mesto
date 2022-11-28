@@ -16,7 +16,7 @@
 https://nataliorigin.github.io/mesto/
 ## **Версия языка**
 
-html5, CSS 3.0, BEM Nested, JavaScript
+html5, CSS 3.0, BEM Nested, JavaScript 1.8.5
 
 ## **Будет реализовано в будущем**
 * Рабочие лайки
