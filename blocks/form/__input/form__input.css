@@ -14,3 +14,6 @@
 .form__input:last-of-type {
   margin-bottom: 0;
 }
+.form__input:focus {
+  outline: none;
+}
