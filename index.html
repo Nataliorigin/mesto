@@ -23,11 +23,11 @@
               alt="Черный кролик">
             <div class="profile__info">
               <div class="profile__title-container">
-                <h1 class="profile__title">Black Rabbit </h1>
+                <h1 class="profile__title">Black Rabbit</h1>
                 <button class="profile__edit-button" type="button">
                 </button>
               </div>
-              <p class="profile__subtitle">Мое место в 2023 </p>
+              <p class="profile__subtitle">Мое место в 2023</p>
             </div>
           </div>
           <button class="profile__add-button" type="button">
@@ -49,9 +49,9 @@
           <form class="popup__form form" action="#" name="form-profile-edit">
             <input class="form__input form__input_name_username" tabindex="1"
               placeholder="Имя"
-              type="text" name="username" value="">
+              type="text" name="username" value="" required>
             <input class="form__input form__input_name_activity" tabindex="2"
-              placeholder="О себе" type="text" name="activity" value="">
+              placeholder="О себе" type="text" name="activity" value="" required>
             <button class="form__button-save" type="submit">Сохранить</button>
           </form>
         </div>
@@ -64,9 +64,9 @@
           <form class="popup__form form" action="#" name="form-profile-additem">
             <input class="form__input form__input_name_title" tabindex="1"
               placeholder="Название"
-              type="text" name="title" value="">
+              type="text" name="title" value="" required>
             <input class="form__input form__input_name_link" tabindex="2"
-              placeholder="Ссылка на картинку" type="url" name="link" value="">
+              placeholder="Ссылка на картинку" type="url" name="link" value="" required>
             <button class="form__button-save" type="submit">Создать</button>
           </form>
         </div>
@@ -92,6 +92,7 @@
           </div>
         </li>
       </template>
+      <script src="./scripts/cards.js"></script>
       <script src="./scripts/index.js"></script>
     </div>
   </body>
