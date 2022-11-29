@@ -53,10 +53,15 @@ function createElement(item) {
   const itemElementImage = itemElement.querySelector('.item__image');
   const buttonLike = itemElement.querySelector('.item__like');
   const buttonDelete = itemElement.querySelector('.item__delete');
-  itemElementTitle.textContent = item.name;
-  itemElementImage.src = item.link;
-  itemElementImage.alt = item.alt || item.name;
-  itemElementImage.addEventListener('click', handleOpenPopupImage);
+	itemElementTitle.textContent = item.name;
+	itemElementImage.src = item.link;
+	itemElementImage.alt = item.alt || item.name;
+	itemElementImage.addEventListener('click', () => { // Функция открытия попапа изображения
+		popupElementImage.src = item.link;
+		popupElementImage.alt = item.alt || item.name;
+		popupElementImgCaption.textContent = item.name;
+		openPopup(popupElementOpenImage)
+	})
   buttonLike.addEventListener('click', handleLikeButtonClick);
   buttonDelete.addEventListener('click', handleDeleteButtonClick);
   return itemElement;
@@ -78,13 +83,6 @@ const handleDeleteButtonClick = (e) => {
 //Функция поставить/убрать лайк
 const handleLikeButtonClick = (e) => {
   e.target.classList.toggle('item__like_active');
-}
-//Функция попапа изображения
-const handleOpenPopupImage = (e) => {
-  popupElementImage.src = e.target.src;
-  popupElementImage.alt = e.target.closest('.item').querySelector('.item__title').textContent;
-  popupElementImgCaption.textContent = e.target.closest('.item').querySelector('.item__title').textContent;
-  openPopup(popupElementOpenImage);
 }
 //Функция отображения массива элементов
 initialItems.forEach((item) => {
