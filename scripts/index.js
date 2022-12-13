@@ -1,5 +1,3 @@
-//Переменные попапа (коллекции)
-const popupElements = document.querySelectorAll('.popup');
 //Переменные для изменения данных профиля
 const popupElementEditProfile = document.querySelector('.popup_content_edit-profile');
 const popupCloseButtonElementEditProfile = popupElementEditProfile.querySelector('.popup__button-close');
@@ -21,10 +19,8 @@ const itemTemplate = document.querySelector('#item-template').content.querySelec
 //Переменнные для попапа открытия изображения
 const popupElementOpenImage = document.querySelector('.popup_content_open-image');
 const popupCloseButtonElementOpenImage = popupElementOpenImage.querySelector('.popup__button-close');
-const popupElementImgContainer = document.querySelector('.popup__img-container');
 const popupElementImage = document.querySelector('.popup__img');
 const popupElementImgCaption = document.querySelector('.popup__img-caption');
-//Массив элементов для отображения на странице
 
 //Функция открытия попапа
 const openPopup = (popup) => {
@@ -53,15 +49,15 @@ function createElement(item) {
   const itemElementImage = itemElement.querySelector('.item__image');
   const buttonLike = itemElement.querySelector('.item__like');
   const buttonDelete = itemElement.querySelector('.item__delete');
-	itemElementTitle.textContent = item.name;
-	itemElementImage.src = item.link;
-	itemElementImage.alt = item.alt || item.name;
-	itemElementImage.addEventListener('click', () => { // Функция открытия попапа изображения
-		popupElementImage.src = item.link;
-		popupElementImage.alt = item.alt || item.name;
-		popupElementImgCaption.textContent = item.name;
-		openPopup(popupElementOpenImage)
-	})
+  itemElementTitle.textContent = item.name;
+  itemElementImage.src = item.link;
+  itemElementImage.alt = item.alt || item.name;
+  itemElementImage.addEventListener('click', () => { // Функция открытия попапа изображения
+    popupElementImage.src = item.link;
+    popupElementImage.alt = item.alt || item.name;
+    popupElementImgCaption.textContent = item.name;
+    openPopup(popupElementOpenImage)
+  })
   buttonLike.addEventListener('click', handleLikeButtonClick);
   buttonDelete.addEventListener('click', handleDeleteButtonClick);
   return itemElement;
