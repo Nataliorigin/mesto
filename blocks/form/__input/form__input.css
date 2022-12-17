@@ -1,18 +1,16 @@
 .form__input {
+  display: block;
+  width: 100%;
   font-weight: 400;
   font-size: 14px;
-  line-height: 17px;
+  line-height:1.21;
   color: #000;
-  padding-bottom: 9px;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
   box-sizing: border-box;
-  margin-bottom: 30px;
-}
-.form__input:last-of-type {
-  margin-bottom: 0;
+  padding: 5px 0 7px;
 }
 .form__input:focus {
   outline: none;

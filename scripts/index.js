@@ -1,19 +1,17 @@
+const popupElements = document.querySelectorAll('.popup');
+const escapeButton = 'Escape';
 //Переменные для изменения данных профиля
 const popupElementEditProfile = document.querySelector('.popup_content_edit-profile');
 const popupCloseButtonElementEditProfile = popupElementEditProfile.querySelector('.popup__button-close');
 const buttonOpenPopupElementEditProfile = document.querySelector('.profile__edit-button');
 const profileNameElement = document.querySelector('.profile__title');
 const profileActivityElement = document.querySelector('.profile__subtitle');
-const formElementEditProfile = popupElementEditProfile.querySelector('[name = "form-profile-edit"]');
-const nameInput = formElementEditProfile.querySelector('[name = "username"]');
-const activityInput = formElementEditProfile.querySelector('[name = "activity"]');
+const formElementEditProfile = popupElementEditProfile.querySelector('[name = "profile-edit"]');
 //Переменнные для добавления элемента
-const popupElementAddItem = document.querySelector('.popup_content_add-item');
-const popupCloseButtonElementAddItem = popupElementAddItem.querySelector('.popup__button-close');
+const popupElementAddCard = document.querySelector('.popup_content_add-item');
+const formElementAddCard = popupElementAddCard.querySelector('[name = "add-card"]');
+const popupCloseButtonElementAddItem = popupElementAddCard.querySelector('.popup__button-close');
 const buttonOpenPopupElementAddItem = document.querySelector('.profile__add-button');
-const formElementAddItem = popupElementAddItem.querySelector('[name = "form-profile-additem"]');
-const formInputTitle = formElementAddItem.querySelector('[name = "title"]');
-const formInputLink = formElementAddItem.querySelector('[name = "link"]');
 const elementsContainer = document.querySelector('.elements__container');
 const itemTemplate = document.querySelector('#item-template').content.querySelector('.item');
 //Переменнные для попапа открытия изображения
@@ -21,27 +19,35 @@ const popupElementOpenImage = document.querySelector('.popup_content_open-image'
 const popupCloseButtonElementOpenImage = popupElementOpenImage.querySelector('.popup__button-close');
 const popupElementImage = document.querySelector('.popup__img');
 const popupElementImgCaption = document.querySelector('.popup__img-caption');
-
+//Переменные форм
+const usernameInput = formElementEditProfile.elements.username;
+const userActivityInput = formElementEditProfile.elements.activity;
+const titleInput = formElementAddCard.elements.title;
+const linkInput = formElementAddCard.elements.link;
 //Функция открытия попапа
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupWithEsc);
 }
 //Функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupWithEsc);
 }
 //Функция получения данных профиля и заполнения ими форм
 const getDataElementEditProfile = () => {
-  nameInput.value = profileNameElement.textContent;
-  activityInput.value = profileActivityElement.textContent;
+  usernameInput.value = profileNameElement.textContent;
+  userActivityInput.value = profileActivityElement.textContent;
 }
 //Функция отправки формы в данные профиля
 const submitHandlerFormElementEditProfile = (e) => {
   e.preventDefault();
-  profileNameElement.textContent = nameInput.value;
-  profileActivityElement.textContent = activityInput.value;
+  profileNameElement.textContent = usernameInput.value;
+  profileActivityElement.textContent = userActivityInput.value;
   closePopup(popupElementEditProfile);
+
 }
+
 //Функция заполнения темплейт элемента
 function createElement(item) {
   const itemElement = itemTemplate.cloneNode(true);
@@ -62,6 +68,7 @@ function createElement(item) {
   buttonDelete.addEventListener('click', handleDeleteButtonClick);
   return itemElement;
 }
+
 //Функция отображения добавленного массива элементов
 const renderItem = (item, wrapperElement) => {
   const element = createElement(item);
@@ -88,29 +95,50 @@ initialItems.forEach((item) => {
 const submitHandlerFormElementAddItem = (e) => {
   e.preventDefault();
   const addedEl = {
-    name: formInputTitle.value,
-    link: formInputLink.value
+    name: titleInput.value,
+    link: linkInput.value,
   }
+  const submitButton = popupElementAddCard.querySelector('.form__button-save');
+  submitButton.classList.add('form__button-save_disabled');
+  submitButton.disabled = true;
   addedRenderItem(addedEl, elementsContainer);
-  closePopup();
+  closePopup(popupElementAddCard);
   e.target.reset();
+}
+//Функция закрытия попапа по клику на оверлей
+const closePopupByOverlay = (evt) => {
+  const openModal = document.querySelector('.popup_opened');
+  if (evt.target === evt.currentTarget) {
+    closePopup(openModal);
+  }
+}
+//Функция закрытия попапа по кнопке "esc"
+const closePopupWithEsc = (evt) => {
+  const openModal = document.querySelector('.popup_opened');
+  if (evt.key === escapeButton) {
+    closePopup(openModal);
+  }
 }
 /*Слушатели событий по клику:
 Слушатель на кнопку редактирования профиля*/
 buttonOpenPopupElementEditProfile.addEventListener('click', () => {
   getDataElementEditProfile();
+  const submitButton = popupElementEditProfile.querySelector('.form__button-save');
+  submitButton.classList.remove('form__button-save_disabled');
+  submitButton.disabled = false;
   openPopup(popupElementEditProfile);
 });
 //Слушатель на кнопку добавления элемента
-buttonOpenPopupElementAddItem.addEventListener('click', () => openPopup(popupElementAddItem));
+buttonOpenPopupElementAddItem.addEventListener('click', () => {
+  openPopup(popupElementAddCard);
+});
 //Слушатели на кнопки закрытия
 popupCloseButtonElementEditProfile.addEventListener('click', () => closePopup(popupElementEditProfile));
-popupCloseButtonElementAddItem.addEventListener('click', () => closePopup(popupElementAddItem));
+popupCloseButtonElementAddItem.addEventListener('click', () => closePopup(popupElementAddCard));
 popupCloseButtonElementOpenImage.addEventListener('click', () => closePopup(popupElementOpenImage));
 //Слушатель на кнопку отправки формы редактирования профиля
 formElementEditProfile.addEventListener('submit', submitHandlerFormElementEditProfile);
 //Слушатель на кнопку отправки формы добавления элемента
-formElementAddItem.addEventListener('submit', submitHandlerFormElementAddItem);
-
-
-
+formElementAddCard.addEventListener('submit', submitHandlerFormElementAddItem);
+//Слушатель на закрытие попапа по клику на оверлей
+popupElements.forEach((popup) => popup.addEventListener('click', closePopupByOverlay));
