@@ -22,7 +22,7 @@ const hasInvalidInput = (inputList) => { // Вернуть булево знач
     return !inputElement.validity.valid;
   });
 }
-const toggleButtonState = (inputList, buttonElement, config) => { //Функция активности кнопки сабмита
+const toggleButtonState = (inputList, buttonElement, config) => { //Метод активности кнопки сабмита
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute('disabled', true);
     buttonElement.classList.add(config.inactiveButtonClass);
@@ -31,10 +31,16 @@ const toggleButtonState = (inputList, buttonElement, config) => { //Функци
     buttonElement.classList.remove(config.inactiveButtonClass);
   }
 }
-const setEventListeners = (formElement, config) => { //Функция добавления слушателей на ввод
+const setEventListeners = (formElement, config) => { //Метод добавления слушателей на ввод
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, config);
+  formElement.addEventListener('reset', () => { //Обработчик для деактивации сабмита при загрузке страницы
+    setTimeout(() => {
+      toggleButtonState(inputList, buttonElement, config);
+    }, 0);
+  });
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement, config);
