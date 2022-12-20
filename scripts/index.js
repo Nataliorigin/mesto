@@ -1,14 +1,13 @@
 const popups = document.querySelectorAll('.popup');
 const escapeButton = 'Escape';
+const buttonClose = document.querySelector('.popup__button-close');
 //Переменные для изменения данных профиля
 const popupElementEditProfile = document.querySelector('.popup_content_edit-profile');
 const buttonOpenPopupElementEditProfile = document.querySelector('.profile__edit-button');
 const profileNameElement = document.querySelector('.profile__title');
 const profileActivityElement = document.querySelector('.profile__subtitle');
-const formElementEditProfile = document.forms[name = "profile-edit"];
 //Переменнные для добавления элемента
 const popupElementAddCard = document.querySelector('.popup_content_add-item');
-const formElementAddCard = document.forms[name = "add-card"];
 const buttonOpenPopupElementAddItem = document.querySelector('.profile__add-button');
 const elementsContainer = document.querySelector('.elements__container');
 const itemTemplate = document.querySelector('#item-template').content.querySelector('.item');
@@ -17,8 +16,10 @@ const popupElementOpenImage = document.querySelector('.popup_content_open-image'
 const popupElementImage = document.querySelector('.popup__img');
 const popupElementImgCaption = document.querySelector('.popup__img-caption');
 //Переменные форм
+const formElementEditProfile = document.forms[name = "profile-edit"];
 const usernameInput = formElementEditProfile.elements.username;
 const userActivityInput = formElementEditProfile.elements.activity;
+const formElementAddCard = document.forms[name = "add-card"];
 const titleInput = formElementAddCard.elements.title;
 const linkInput = formElementAddCard.elements.link;
 //Функция открытия попапа
@@ -126,7 +127,7 @@ popups.forEach((popup) => {
     if (evt.target.classList.contains('popup_opened')) {
       closePopup(popup);
     }
-    if (evt.target.classList.contains('popup__close')) {
+    if (evt.target.classList.contains('popup__button-close')) {
       closePopup(popup);
     }
   })
