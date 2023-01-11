@@ -1,16 +1,18 @@
+import {initialCard, Card} from "./Card.js";
+import {FormValidator} from "./FormValidator.js";
+
 const popups = document.querySelectorAll('.popup');
 const escapeButton = 'Escape';
-const buttonClose = document.querySelector('.popup__button-close');
 //Переменные для изменения данных профиля
 const popupElementEditProfile = document.querySelector('.popup_content_edit-profile');
 const buttonOpenPopupElementEditProfile = document.querySelector('.profile__edit-button');
 const profileNameElement = document.querySelector('.profile__title');
 const profileActivityElement = document.querySelector('.profile__subtitle');
 //Переменнные для добавления элемента
+const templateSelector = '#item-template';
 const popupElementAddCard = document.querySelector('.popup_content_add-item');
 const buttonOpenPopupElementAddItem = document.querySelector('.profile__add-button');
 const elementsContainer = document.querySelector('.elements__container');
-const itemTemplate = document.querySelector('#item-template').content.querySelector('.item');
 //Переменнные для попапа открытия изображения
 const popupElementOpenImage = document.querySelector('.popup_content_open-image');
 const popupElementImage = document.querySelector('.popup__img');
@@ -22,106 +24,76 @@ const userActivityInput = formElementEditProfile.elements.activity;
 const formElementAddCard = document.forms[name = "add-card"];
 const titleInput = formElementAddCard.elements.title;
 const linkInput = formElementAddCard.elements.link;
-//Функция открытия попапа
+//Переменные для валидации
+const configValidation = {
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button-save',
+  inactiveButtonClass: 'form__button-save_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+const addCardFormValidator = new FormValidator(configValidation, formElementAddCard);
+const editProfileFormValidator = new FormValidator(configValidation, formElementEditProfile)
+
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupWithEsc);
 }
-//Функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupWithEsc);
 }
-//Функция получения данных профиля и заполнения ими форм
 const getDataElementEditProfile = () => {
   usernameInput.value = profileNameElement.textContent;
   userActivityInput.value = profileActivityElement.textContent;
 }
-//Функция отправки формы в данные профиля
-const handleProfileFormSubmit = (e) => {
+const handleProfileFormSubmit = (e) => { //Отправить форму профиля
   e.preventDefault();
   profileNameElement.textContent = usernameInput.value;
   profileActivityElement.textContent = userActivityInput.value;
   closePopup(popupElementEditProfile);
-
 }
-
-//Функция заполнения темплейт элемента
-function createCard(item) {
-  const itemElement = itemTemplate.cloneNode(true);
-  const itemElementTitle = itemElement.querySelector('.item__title');
-  const itemElementImage = itemElement.querySelector('.item__image');
-  const buttonLike = itemElement.querySelector('.item__like');
-  const buttonDelete = itemElement.querySelector('.item__delete');
-  itemElementTitle.textContent = item.name;
-  itemElementImage.src = item.link;
-  itemElementImage.alt = item.alt || item.name;
-  itemElementImage.addEventListener('click', () => { // Функция открытия попапа изображения
-    popupElementImage.src = item.link;
-    popupElementImage.alt = item.alt || item.name;
-    popupElementImgCaption.textContent = item.name;
-    openPopup(popupElementOpenImage)
-  })
-  buttonLike.addEventListener('click', handleLikeButtonClick);
-  buttonDelete.addEventListener('click', handleDeleteButtonClick);
-  return itemElement;
+const handleCardClick = (name, link) => { //Открыть попап карточки и заполнить
+  popupElementImgCaption.textContent = name;
+  popupElementImage.src = link;
+  openPopup(popupElementOpenImage);
 }
-
-//Функция отображения добавленного массива элементов
-const appendItem = (item, wrapperElement) => {
-  const element = createCard(item);
-  wrapperElement.append(element);
+const createCard = (item, wrap) => { //Создать и добавить карточку
+  const card = new Card(item, templateSelector, handleCardClick)
+  const cardElement = card.generateCard();
+  wrap.prepend(cardElement);
 }
-//Функция отображения новых элементов
-const prependItem = (item, wrapperElement) => {
-  const element = createCard(item);
-  wrapperElement.prepend(element);
-}
-//Функция удаления элемента
-const handleDeleteButtonClick = (e) => {
-  e.target.closest('.item').remove();
-}
-//Функция поставить/убрать лайк
-const handleLikeButtonClick = (e) => {
-  e.target.classList.toggle('item__like_active');
-}
-//Функция отображения массива элементов
-initialItems.forEach((item) => {
-  appendItem(item, elementsContainer);
-});
-//Функция отправки формы данных попапа "добавить элемент"
-const handleAddCardFormSubmit = (e) => {
+const handleAddCardFormSubmit = (e) => { //Отправить форму "добавить карточку"
   e.preventDefault();
-  const addedEl = {
+  createCard({
     name: titleInput.value,
     link: linkInput.value,
-  }
-  prependItem(addedEl, elementsContainer);
+  }, elementsContainer);
   closePopup(popupElementAddCard);
   e.target.reset();
 }
-//Функция закрытия попапа по кнопке "esc"
-const closePopupWithEsc = (evt) => {
+const closePopupWithEsc = (evt) => { //Закрыть попап по кнопке "esc"
   if (evt.key === escapeButton) {
     const openModal = document.querySelector('.popup_opened');
     closePopup(openModal);
   }
 }
-/*Слушатели событий по клику:
-Слушатель на кнопку редактирования профиля*/
+initialCard.forEach((data) => { //Отобразить дефолтные карточки
+  createCard(data, elementsContainer);
+})
+addCardFormValidator.enableValidation(); //Включить валидацию для формы редактирования профиля
+editProfileFormValidator.enableValidation(); //Включить валидацию для формы "добавить карточку"
+
 buttonOpenPopupElementEditProfile.addEventListener('click', () => {
   getDataElementEditProfile();
   openPopup(popupElementEditProfile);
 });
-//Слушатель на кнопку добавления элемента
 buttonOpenPopupElementAddItem.addEventListener('click', () => {
   openPopup(popupElementAddCard);
 });
-//Слушатель на кнопку отправки формы редактирования профиля
 formElementEditProfile.addEventListener('submit', handleProfileFormSubmit);
-//Слушатель на кнопку отправки формы добавления элемента
 formElementAddCard.addEventListener('submit', handleAddCardFormSubmit);
-//Слушатель на закрытие попапов по клику на оверлей и крестика
+//Слушатель на закрытие попапов по клику на оверлей и крестик
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
@@ -132,3 +104,4 @@ popups.forEach((popup) => {
     }
   })
 })
+
