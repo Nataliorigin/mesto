@@ -1,39 +1,13 @@
-import {initialCard, Card} from "./Card.js";
+import {Card} from "./Card.js";
 import {FormValidator} from "./FormValidator.js";
-
-const popups = document.querySelectorAll('.popup');
-const escapeButton = 'Escape';
-//Переменные для изменения данных профиля
-const popupElementEditProfile = document.querySelector('.popup_content_edit-profile');
-const buttonOpenPopupElementEditProfile = document.querySelector('.profile__edit-button');
-const profileNameElement = document.querySelector('.profile__title');
-const profileActivityElement = document.querySelector('.profile__subtitle');
-//Переменнные для добавления элемента
-const templateSelector = '#item-template';
-const popupElementAddCard = document.querySelector('.popup_content_add-item');
-const buttonOpenPopupElementAddItem = document.querySelector('.profile__add-button');
-const elementsContainer = document.querySelector('.elements__container');
-//Переменнные для попапа открытия изображения
-const popupElementOpenImage = document.querySelector('.popup_content_open-image');
-const popupElementImage = document.querySelector('.popup__img');
-const popupElementImgCaption = document.querySelector('.popup__img-caption');
-//Переменные форм
-const formElementEditProfile = document.forms[name = "profile-edit"];
-const usernameInput = formElementEditProfile.elements.username;
-const userActivityInput = formElementEditProfile.elements.activity;
-const formElementAddCard = document.forms[name = "add-card"];
-const titleInput = formElementAddCard.elements.title;
-const linkInput = formElementAddCard.elements.link;
+import {initialCard, configValidation} from "./Сonstants.js";
+import {popups,escapeButton,popupElementEditProfile,buttonOpenPopupElementEditProfile,profileNameElement,
+  profileActivityElement,templateSelector,popupElementAddCard,buttonOpenPopupElementAddItem,elementsContainer,
+  popupElementOpenImage,popupElementImage,popupElementImgCaption,formElementEditProfile,
+  usernameInput,userActivityInput,formElementAddCard,titleInput,linkInput} from "./Elements.js";
 //Переменные для валидации
-const configValidation = {
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button-save',
-  inactiveButtonClass: 'form__button-save_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-};
-const addCardFormValidator = new FormValidator(configValidation, formElementAddCard);
 const editProfileFormValidator = new FormValidator(configValidation, formElementEditProfile)
+const addCardFormValidator = new FormValidator(configValidation, formElementAddCard);
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
@@ -58,17 +32,21 @@ const handleCardClick = (name, link) => { //Открыть попап карто
   popupElementImage.src = link;
   openPopup(popupElementOpenImage);
 }
-const createCard = (item, wrap) => { //Создать и добавить карточку
+const createCard = (item) => { //Создать и добавить карточку
   const card = new Card(item, templateSelector, handleCardClick)
   const cardElement = card.generateCard();
+  return cardElement;
+}
+const addCard = (cardElement, wrap) => {
   wrap.prepend(cardElement);
 }
 const handleAddCardFormSubmit = (e) => { //Отправить форму "добавить карточку"
   e.preventDefault();
-  createCard({
+ addCard(createCard({
     name: titleInput.value,
     link: linkInput.value,
-  }, elementsContainer);
+  }), elementsContainer);
+
   closePopup(popupElementAddCard);
   e.target.reset();
 }
@@ -79,7 +57,7 @@ const closePopupWithEsc = (evt) => { //Закрыть попап по кнопк
   }
 }
 initialCard.forEach((data) => { //Отобразить дефолтные карточки
-  createCard(data, elementsContainer);
+  addCard(createCard(data), elementsContainer);
 })
 addCardFormValidator.enableValidation(); //Включить валидацию для формы редактирования профиля
 editProfileFormValidator.enableValidation(); //Включить валидацию для формы "добавить карточку"
@@ -87,9 +65,12 @@ editProfileFormValidator.enableValidation(); //Включить валидаци
 buttonOpenPopupElementEditProfile.addEventListener('click', () => {
   getDataElementEditProfile();
   openPopup(popupElementEditProfile);
+  editProfileFormValidator.resetValidation();
 });
 buttonOpenPopupElementAddItem.addEventListener('click', () => {
   openPopup(popupElementAddCard);
+  formElementAddCard.reset();
+  addCardFormValidator.resetValidation();
 });
 formElementEditProfile.addEventListener('submit', handleProfileFormSubmit);
 formElementAddCard.addEventListener('submit', handleAddCardFormSubmit);

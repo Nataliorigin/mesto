@@ -2,6 +2,8 @@ export class FormValidator {
   constructor(config, form) {
     this._config = config;
     this._form = form;
+    this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector);
   }
 _showInputError = (inputElement, errorMessage) => { //Показать ошибку
     const errorElement =  this._form.querySelector(`.${inputElement.name}-error`);
@@ -15,8 +17,7 @@ _hideInputError = (inputElement) => { //Скрыть ошибку
     errorElement.classList.remove(this._config.errorClass);
     errorElement.textContent = '';
   };
-
-  _checkInputValidity = (inputElement) => { //Проверка инпутов на валидность
+  _checkInputValidity = (inputElement) => { //Проверить инпут на валидность
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -28,32 +29,31 @@ _hideInputError = (inputElement) => { //Скрыть ошибку
       return !inputElement.validity.valid;
     });
   }
- _toggleButtonState = (inputList, buttonElement) => { //Метод активности кнопки сабмита
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.setAttribute('disabled', true);
-      buttonElement.classList.add(this._config.inactiveButtonClass);
+ _toggleButtonState = () => { //Метод активности кнопки сабмита
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.setAttribute('disabled', true);
+      this._buttonElement.classList.add(this._config.inactiveButtonClass);
     } else {
-      buttonElement.removeAttribute('disabled');
-      buttonElement.classList.remove(this._config.inactiveButtonClass);
+      this._buttonElement.removeAttribute('disabled');
+      this._buttonElement.classList.remove(this._config.inactiveButtonClass);
     }
   }
- clearValidation = () => {
-
-  }
- enableValidation() {
-   const inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector)); //Массив инпутов
-   const buttonElement = this._form.querySelector(this._config.submitButtonSelector);
-   this._toggleButtonState(inputList, buttonElement);
-   this._form.addEventListener('reset', () => { //Обработчик для деактивации сабмита при загрузке страницы
+ resetValidation = () => {
+   this._inputList.forEach(inputElement =>{ //Скрыть ошибки при открытии попапа
+    this._hideInputError(inputElement);
+   })
+  this._form.addEventListener('reset', () => { //Деактивировать сабмит при очистке формы
      setTimeout(() => {
-       this._toggleButtonState(buttonElement);
+       this._toggleButtonState();
      }, 0);
    });
-
-   inputList.forEach((inputElement) => {
+  }
+ enableValidation() {
+   this._toggleButtonState();
+   this._inputList.forEach((inputElement) => {
      inputElement.addEventListener('input', () => {
        this._checkInputValidity(inputElement);
-       this._toggleButtonState(inputList, buttonElement);
+       this._toggleButtonState();
      });
    });
   }

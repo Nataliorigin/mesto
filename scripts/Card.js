@@ -1,34 +1,7 @@
-export const initialCard = [
-  {
-    name: 'Абхазия',
-    link: './img/abhazia.jpg',
-  },
-  {
-    name: 'Дагестан',
-    link: './img/dagestan.jpg',
-  },
-  {
-    name: 'Эверест',
-    link: './img/everest.jpg',
-  },
-  {
-    name: 'Владивосток',
-    link: './img/vladivostok.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: './img/kamchatka.jpg',
-  },
-  {
-    name: 'Сулакский каньон',
-    link: './img/sulak_canyon.jpg',
-  }
-];
-
 export class Card {
-  constructor(obj, templateSelector, handleCardClick) {
-    this._name = obj.name;
-    this._link = obj.link;
+  constructor(cardData, templateSelector, handleCardClick) {
+    this._name = cardData.name;
+    this._link = cardData.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
