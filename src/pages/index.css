@@ -20,8 +20,8 @@
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 /*Elements*/
-@import url(../blocks/elements/elements.css);
-@import url(../blocks/elements/__container/elements__container.css);
+@import url(../blocks/cards/cards.css);
+@import url(../blocks/cards/__container/cards__container.css);
 @import url(../blocks/item/item.css);
 @import url(../blocks/item/__container/item__container.css);
 @import url(../blocks/item/__image/item__image.css);

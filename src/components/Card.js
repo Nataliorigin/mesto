@@ -1,4 +1,4 @@
-export class Card {
+export default class Card {
   constructor(cardData, templateSelector, handleCardClick) {
     this._name = cardData.name;
     this._link = cardData.link;
@@ -7,10 +7,9 @@ export class Card {
   }
 
   _getTemplate() {
-    const cardElement = document.querySelector(this._templateSelector) //Получаем разметку  по выбранному селектору
+    return document.querySelector(this._templateSelector) //Получаем разметку  по выбранному селектору
       .content.querySelector('.item')
       .cloneNode(true);
-    return cardElement;
   }
 
   generateCard() {
@@ -19,8 +18,8 @@ export class Card {
     const cardElementImage = this._element.querySelector('.item__image');
     const buttonElementLike = this._element.querySelector('.item__like');
     const buttonElementDelete = this._element.querySelector('.item__delete');
-    cardElementTitle.textContent = this._name;
     cardElementImage.src = this._link;
+    cardElementTitle.textContent = this._name;
     cardElementImage.alt = this._name;
     this._setEventListeners(cardElementImage, buttonElementLike, buttonElementDelete);
     return this._element;
