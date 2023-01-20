@@ -1,27 +1,34 @@
+import abhazia from '../img/abhazia.jpg';
+import dagestan from '../img/dagestan.jpg';
+import everest from '../img/everest.jpg';
+import vladivostok from '../img/vladivostok.jpg';
+import kamchatka from '../img/kamchatka.jpg';
+import sulakCanyon from '../img/sulak_canyon.jpg';
+
 export const initialCard = [
   {
     name: 'Абхазия',
-    link: './img/abhazia.jpg',
+    link: abhazia,
   },
   {
     name: 'Дагестан',
-    link: './img/dagestan.jpg',
+    link: dagestan,
   },
   {
     name: 'Эверест',
-    link: './img/everest.jpg',
+    link: everest,
   },
   {
     name: 'Владивосток',
-    link: './img/vladivostok.jpg',
+    link: vladivostok,
   },
   {
     name: 'Камчатка',
-    link: './img/kamchatka.jpg',
+    link: kamchatka,
   },
   {
     name: 'Сулакский каньон',
-    link: './img/sulak_canyon.jpg',
+    link: sulakCanyon,
   }
 ];
 export const configValidation = {

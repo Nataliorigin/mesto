@@ -1,3 +1,5 @@
+
+import './index.css';
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import {configValidation, initialCard} from "../utils/сonstants.js";
@@ -89,4 +91,3 @@ buttonOpenPopupElementAddItem.addEventListener('click', () => {
   popupAddCard.open();
   addCardFormValidator.resetValidation();
 });
-

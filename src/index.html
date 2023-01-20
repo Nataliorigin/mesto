@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="pages/index.css">
-  <link rel="icon" href="img/icon_mesto.png" type="image/png">
+  <link rel="icon" href="<%=require('./img/icon_mesto.png')%>" type="image/png">
   <title>Mesto</title>
 </head>
 <body class="page">
 <div class="page__body">
   <header class="header">
     <div class="header__container">
-      <img src="img/logo.svg" alt="Логотип сервиса 'Место'"
+      <img src="<%=require('./img/logo.svg')%>" alt="Логотип сервиса 'Место'"
            class="header__logo">
     </div>
   </header>
@@ -19,7 +18,7 @@
     <section class="profile">
       <div class="profile__container">
         <img class="profile__avatar"
-             src="img/avatar.png"
+             src="<%=require('./img/avatar.png')%>"
              alt="Аватар">
         <div class="profile__info">
           <div class="profile__title-container">
