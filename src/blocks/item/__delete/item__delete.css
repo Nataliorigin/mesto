@@ -1,7 +1,7 @@
 .item__delete {
   position: absolute;
   top: 20px;
- right: 20px;
+  right: 20px;
   border: none;
   background: url(../../../img/Trash.svg) center/100% no-repeat;
   height: 19px;

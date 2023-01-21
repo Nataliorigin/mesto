@@ -3,6 +3,6 @@
   height: 361px;
   border-radius: 10px;
   overflow: hidden;
-   grid-template-rows: 282px 1fr;
-   position: relative;
+  grid-template-rows: 282px 1fr;
+  position: relative;
 }
