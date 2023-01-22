@@ -30,8 +30,8 @@ export default class Card {
     return this._element;
   }
 
-  _handleLikeButtonClick(buttonElementLike) {
-    buttonElementLike.classList.toggle("item__like_active");
+  _handleLikeButtonClick() {
+    this._buttonElementLike.classList.toggle("item__like_active");
   }
 
   _handleDeleteButtonClick() {
@@ -39,14 +39,14 @@ export default class Card {
     this._element = null;
   }
 
-  _setEventListeners(cardElementImage, buttonElementLike, buttonElementDelete) {
-    buttonElementLike.addEventListener("click", () => {
-      this._handleLikeButtonClick(buttonElementLike);
+  _setEventListeners() {
+    this._buttonElementLike.addEventListener("click", () => {
+      this._handleLikeButtonClick();
     });
-    buttonElementDelete.addEventListener("click", () =>
+    this._buttonElementDelete.addEventListener("click", () =>
       this._handleDeleteButtonClick()
     );
-    cardElementImage.addEventListener("click", () =>
+    this._cardElementImage.addEventListener("click", () =>
       this._handleCardClick(this._name, this._link)
     );
   }

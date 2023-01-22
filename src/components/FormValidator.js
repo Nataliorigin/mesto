@@ -9,8 +9,8 @@ export default class FormValidator {
       this._config.submitButtonSelector
     );
   }
-  _showInputError = (inputElement, errorMessage) => {
-    //Показать ошибку
+
+  _showInputError = (inputElement, errorMessage) => { //Показать ошибку
     const errorElement = this._form.querySelector(
       `.${inputElement.name}-error`
     );
@@ -18,8 +18,7 @@ export default class FormValidator {
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._config.errorClass);
   };
-  _hideInputError = (inputElement) => {
-    //Скрыть ошибку
+  _hideInputError = (inputElement) => { //Скрыть ошибку
     const errorElement = this._form.querySelector(
       `.${inputElement.name}-error`
     );
@@ -27,23 +26,20 @@ export default class FormValidator {
     errorElement.classList.remove(this._config.errorClass);
     errorElement.textContent = "";
   };
-  _checkInputValidity = (inputElement) => {
-    //Проверить инпут на валидность
+  _checkInputValidity = (inputElement) => { //Проверить инпут на валидность
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
       this._hideInputError(inputElement);
     }
   };
-  _hasInvalidInput = (inputList) => {
-    // Вернуть булево значение
-    return inputList.some((inputElement) => {
+  _hasInvalidInput = () => { // Вернуть булево значение
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
-  _toggleButtonState = () => {
-    //Метод активности кнопки сабмита
-    if (this._hasInvalidInput(this._inputList)) {
+  _toggleButtonState = () => { //Метод активности кнопки сабмита
+    if (this._hasInvalidInput()) {
       this._buttonElement.setAttribute("disabled", true);
       this._buttonElement.classList.add(this._config.inactiveButtonClass);
     } else {
@@ -52,17 +48,16 @@ export default class FormValidator {
     }
   };
   resetValidation = () => {
-    this._inputList.forEach((inputElement) => {
-      //Скрыть ошибки при открытии попапа
+    this._inputList.forEach((inputElement) => { //Скрыть ошибки при открытии попапа
       this._hideInputError(inputElement);
     });
-    this._form.addEventListener("reset", () => {
-      //Деактивировать сабмит при очистке формы
+    this._form.addEventListener("reset", () => { //Деактивировать сабмит при очистке формы
       setTimeout(() => {
         this._toggleButtonState();
       }, 0);
     });
   };
+
   enableValidation() {
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {

@@ -38,7 +38,6 @@ export const configValidation = {
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error_active",
 };
-
 export const escapeKey = "Escape";
 export const templateSelector = "#item-template";
 export const cardsSelector = ".cards__container";

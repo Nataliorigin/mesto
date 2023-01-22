@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor({ usernameSelector, activitySelector }) {
+  constructor({usernameSelector, activitySelector}) {
     this._usernameTitle = document.querySelector(usernameSelector);
     this._activitySubtitle = document.querySelector(activitySelector);
   }

@@ -1,4 +1,4 @@
-import { escapeKey } from "../utils/сonstants.js";
+import {escapeKey} from "../utils/сonstants.js";
 
 export default class Popup {
   constructor(popupSelector) {
@@ -11,7 +11,6 @@ export default class Popup {
   }
 
   close() {
-    console.log(escapeKey);
     this._popup.classList.remove("popup_opened");
     document.removeEventListener("keydown", this._handleEscClose);
   }
@@ -22,7 +21,7 @@ export default class Popup {
     }
   };
 
-  _setEventListeners() {
+  setEventListeners() {
     this._popup.addEventListener("mousedown", (evt) => {
       if (evt.target.classList.contains("popup_opened")) {
         this.close();
