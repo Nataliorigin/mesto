@@ -73,6 +73,7 @@ const handleGetValuesEditProfile = () => { //Получить данные пр�
   userActivityInput.value = activity;
 };
 
+
 //Слушатели на попапы и кнопки
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
