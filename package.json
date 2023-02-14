@@ -7,7 +7,7 @@
     "build": "webpack --mode production",
     "dev": "webpack serve",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -m 'Automatically update gh-pages [skip ci]'"
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
