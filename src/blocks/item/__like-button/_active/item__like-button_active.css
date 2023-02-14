@@ -1,5 +1,3 @@
-.item__like_active {
-  border: none;
+.item__like-button_active {
   background: url(../../../../img/like-active.svg) center/100% no-repeat;
-  cursor: pointer;
 }

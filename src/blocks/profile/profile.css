@@ -1,9 +1,9 @@
 .profile {
   display: flex;
-  justify-content: space-between;
   min-height: 120px;
   align-items: center;
 }
+
 @media screen and (max-width: 910px) {
   .profile {
     width: 88.13%;
@@ -11,6 +11,7 @@
     flex-wrap: wrap;
   }
 }
+
 @media screen and (max-width: 568px) {
   .profile {
     flex-direction: column;

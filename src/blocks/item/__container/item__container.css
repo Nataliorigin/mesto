@@ -1,9 +1,8 @@
 .item__container {
   margin: 0;
-  display: grid;
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 15px 0 21px;
+  padding: 0 22px;
   background-color: #fff;
-  position: relative;
 }

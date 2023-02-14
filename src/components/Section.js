@@ -1,18 +1,16 @@
 export default class Section {
-  constructor({ renderer }, selector) {
+  constructor({renderer}, selector) {
     this._renderer = renderer;
     this._container = document.querySelector(selector);
   }
 
-  renderItems(initialCards) {
-    //публичный метод, который отвечает за отрисовку всех элементов
-    initialCards.forEach((item) => {
-      this._renderer(item);
+  renderItems(initialCards) { //отрисовать все карточки циклом
+    initialCards.reverse().forEach((card) => {
+      this._renderer(card);
     });
   }
 
-  addItem(cardElement) {
-    //публичный метод addItem, который принимает DOM-элемент и добавляет его в контейнер.
+  addItem(cardElement) { //Добавить карточку в контейнер
     this._container.prepend(cardElement);
   }
 }
