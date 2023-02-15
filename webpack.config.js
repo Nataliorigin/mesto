@@ -38,6 +38,14 @@ module.exports = {
         },
       },
       {
+        // регулярное выражение, которое ищет все файлы с такими расширениями
+        test: /\.(woff(2)?|eot|ttf|otf)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "fonts/[name].[hash][ext][query]",
+        },
+      },
+      {
         // применять это правило только к CSS-файлам
         test: /\.css$/,
         // при обработке этих файлов нужно использовать

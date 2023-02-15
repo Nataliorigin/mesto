@@ -5,12 +5,16 @@ export default class Section {
   }
 
   renderItems(initialCards) { //отрисовать все карточки циклом
-    initialCards.reverse().forEach((card) => {
+    initialCards.forEach((card) => {
       this._renderer(card);
     });
   }
 
-  addItem(cardElement) { //Добавить карточку в контейнер
-    this._container.prepend(cardElement);
+  addItemsFromServer(initialCard) {
+    this._container.append(initialCard);
+  }
+
+  addItem(newCardElement) { //Добавить карточку в контейнер
+    this._container.prepend(newCardElement);
   }
 }

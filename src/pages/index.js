@@ -91,8 +91,8 @@ const createCard = (cardData) => {
 
 const cardList = new Section(
   {
-    renderer: (item) => {
-      cardList.addItem(createCard(item));
+    renderer: (card) => {
+      cardList.addItemsFromServer(createCard(card)); //Добавить массив с сервера в правильном порядке
     },
   },
   ".cards__container"
@@ -158,7 +158,7 @@ const handleDeleteCardSubmit = ({element, cardId}) => {
   popupWithConfirmation.renderLoading(true);
   api
     .deleteCard(cardId)
-    .then((res) => {
+    .then(() => {
       element.remove();
       element = null;
       popupWithConfirmation.close();
@@ -198,7 +198,22 @@ const popupWithConfirmation = new PopupWithConfirmation( //Модалка сде
   ".popup_content_delete-card",
   handleDeleteCardSubmit
 );
+//Хендлеры для открытия попапов
+const handleOpenPopupElEditProfile = () => {
+  handleGetValuesEditProfile();
+  formValidatorEditProfile.resetValidation();
+  popupEditProfile.open();
+}
 
+const handleOpenPopupElAddItem = () => {
+  formValidatorAddCard.resetValidation();
+  popupAddCard.open();
+}
+
+const handleOpenPopupElEditAvatar = () => {
+  formValidatorEditAvatar.resetValidation();
+  popupEditAvatar.open();
+}
 //Слушатели на попапы и кнопки
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
@@ -206,16 +221,6 @@ popupImage.setEventListeners();
 popupEditAvatar.setEventListeners();
 popupWithConfirmation.setEventListeners();
 
-buttonOpenPopupElementEditProfile.addEventListener("click", () => {
-  handleGetValuesEditProfile();
-  formValidatorEditProfile.resetValidation();
-  popupEditProfile.open();
-});
-buttonOpenPopupElementAddItem.addEventListener("click", () => {
-  formValidatorAddCard.resetValidation();
-  popupAddCard.open();
-});
-buttonOpenPopupElementEditAvatar.addEventListener("click", () => {
-  formValidatorEditAvatar.resetValidation();
-  popupEditAvatar.open();
-});
+buttonOpenPopupElementEditProfile.addEventListener("click", handleOpenPopupElEditProfile);
+buttonOpenPopupElementAddItem.addEventListener("click", handleOpenPopupElAddItem);
+buttonOpenPopupElementEditAvatar.addEventListener("click", handleOpenPopupElEditAvatar);
