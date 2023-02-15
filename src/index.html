@@ -2,13 +2,13 @@
 <!--suppress ALL -->
 <html lang="ru">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link
     rel="icon"
     href="<%=require('./img/icon_mesto.png')%>"
     type="image/png"
-  />
+  >
   <title>Mesto</title>
 </head>
 <body class="page">
@@ -19,7 +19,7 @@
         src="<%=require('./img/logo.svg')%>"
         alt="Логотип сервиса 'Место'"
         class="header__logo"
-      />
+      >
     </div>
   </header>
   <main class="container">
@@ -29,14 +29,14 @@
           class="profile__avatar"
           src="<%=require('./img/avatar.png')%>"
           alt="Аватар"
-        />
+        >
       </div>
       <div class="profile__info">
         <div class="profile__title-container">
-          <h1 class="profile__title"></h1>
+          <h1 class="profile__title">Имя</h1>
           <button class="profile__edit-button" type="button"></button>
         </div>
-        <p class="profile__subtitle"></p>
+        <p class="profile__subtitle">О себе</p>
       </div>
       <button class="profile__add-button" type="button"></button>
     </section>
@@ -72,7 +72,7 @@
             minlength="2"
             maxlength="40"
             required
-          />
+          >
           <span class="name-error form__input-error"></span>
         </label>
         <label class="form__field">
@@ -86,7 +86,7 @@
             minlength="2"
             maxlength="200"
             required
-          />
+          >
           <span class="about-error form__input-error"></span>
         </label>
         <button class="form__button-save" type="submit">Сохранить</button>
@@ -118,7 +118,7 @@
             minlength="2"
             maxlength="30"
             required
-          />
+          >
           <span class="name-error form__input-error"></span>
         </label>
         <label class="form__field">
@@ -130,7 +130,7 @@
             name="link"
             value=""
             required
-          />
+          >
           <span class="link-error form__input-error"></span>
         </label>
         <button class="form__button-save" type="submit" disabled>
@@ -146,7 +146,7 @@
     <div class="popup__img-container">
       <button type="button" class="popup__button-close"></button>
       <figure class="popup__figure-wrapper">
-        <img src="#" alt="Описание изображения" class="popup__img"/>
+        <img src="#" alt="Описание изображения" class="popup__img">
         <figcaption class="popup__img-caption"></figcaption>
       </figure>
     </div>
@@ -188,7 +188,7 @@
             name="avatar"
             value=""
             required
-          />
+          >
           <span class="avatar-error form__input-error"></span>
         </label>
         <button class="form__button-save" type="submit">Сохранить</button>
@@ -198,7 +198,7 @@
   <template id="item-template">
     <li class="item">
       <button class="item__delete" type="button"></button>
-      <img class="item__image" src="#" alt="описание изображения"/>
+      <img class="item__image" src="#" alt="описание изображения">
       <div class="item__container">
         <h2 class="item__title"></h2>
         <div class="item__like">
