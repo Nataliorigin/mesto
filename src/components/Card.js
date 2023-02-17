@@ -66,7 +66,14 @@ export default class Card {
     this._buttonElementLike.addEventListener("click", () => {
       this._handleSetLikeClick(this._data);
     });
-
+    this._buttonElementLike.addEventListener('mouseover', () => {
+        this._buttonElementLike.classList.add('item__like-button_hover');
+      }
+    )
+    this._buttonElementLike.addEventListener('mouseout', () => {
+        this._buttonElementLike.classList.remove('item__like-button_hover');
+      }
+    )
     this._buttonElementDelete.addEventListener("click", () => {
       this._handleDeleteCardClick(this._element, this._cardId);
     });

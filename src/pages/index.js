@@ -61,7 +61,6 @@ const createCard = (cardData) => {
       popupImage.open(cardData.name, cardData.link);
     },
     handleSetLikeClick: (card) => {
-      console.log(newCard.hasLiked());
       if (newCard.hasLiked()) {
         api
           .deleteLike(card._id)
@@ -224,3 +223,4 @@ popupWithConfirmation.setEventListeners();
 buttonOpenPopupElementEditProfile.addEventListener("click", handleOpenPopupElEditProfile);
 buttonOpenPopupElementAddItem.addEventListener("click", handleOpenPopupElAddItem);
 buttonOpenPopupElementEditAvatar.addEventListener("click", handleOpenPopupElEditAvatar);
+

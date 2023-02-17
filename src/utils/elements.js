@@ -13,3 +13,4 @@ export const usernameInput = formElementEditProfile.elements.name;
 export const userActivityInput = formElementEditProfile.elements.about;
 export const formElementAddCard = document.forms[(name = "add-card")];
 export const formElementAvatarProfile = document.forms[(name = "edit-avatar")];
+export const buttonLike = document.querySelector('.item__like-button');
