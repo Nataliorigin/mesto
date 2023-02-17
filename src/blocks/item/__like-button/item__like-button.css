@@ -6,3 +6,9 @@
   transition: 0.3s;
   border: none;
 }
+
+@media (hover: hover) {
+  .item__like-button:hover {
+    opacity: 0.5;
+  }
+}
