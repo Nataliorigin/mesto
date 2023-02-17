@@ -7,6 +7,8 @@
   border: none;
 }
 
-.item__like-button:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .item__like-button:hover {
+    opacity: 0.5;
+  }
 }
